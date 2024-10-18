@@ -25,3 +25,45 @@ Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To u
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+
+## Project detailing
+
+-- Global feed
+-- CRUD
+-- Like/Dislike a post
+-- Registration
+-- Login, Authorization(Local storage token)
+-- Routing
+-- Pagination
+-- NgRx State Management
+
+
+## Architecture of project
+
+/app
+    /article
+        /components
+        /store(NgRx)
+        /types
+        /services
+            article.service.ts(non shareable)
+        article.routes
+    /globalFeed
+        /components
+            /globalFeed
+        globalFeed.routes(Lazy loading)
+    /shared
+        /components
+            /backendErrorMessages
+                backendErrorMessages.component.ts
+            /popularTags
+                popularTags.component.ts
+                /types
+                /store
+                /services
+        /types
+            article.interface.ts
+        /services
+            article.service.ts(shareable)
+    /app.routes
+main.ts
