@@ -7,6 +7,9 @@ import {
   Validators,
 } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { registration } from '../../store/actions';
+import { RegisterRequestInterface } from '../../types/registerRequest.interface';
 
 @Component({
   selector: 'app-register',
@@ -18,7 +21,7 @@ import { RouterModule } from '@angular/router';
 export class RegisterComponent implements OnInit {
   form!: FormGroup;
 
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: FormBuilder, private store: Store) {}
 
   ngOnInit() {
     this.form = this.fb.group({
@@ -37,5 +40,9 @@ export class RegisterComponent implements OnInit {
 
   onSubmit() {
     console.log('Form submitted', this.form);
+    const request: RegisterRequestInterface = {
+      user: this.form.value,
+    };
+    this.store.dispatch(registration({ request }));
   }
 }
