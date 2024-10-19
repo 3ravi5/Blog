@@ -14,6 +14,7 @@ import { selectIsSubmitting } from '../../store/selectors';
 import { AuthStateInterface } from '../../types/authState.interface';
 import { Observable } from 'rxjs';
 import { CommonModule } from '@angular/common';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-register',
@@ -28,7 +29,8 @@ export class RegisterComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private store: Store<{ auth: AuthStateInterface }>
+    private store: Store<{ auth: AuthStateInterface }>,
+    private authService: AuthService
   ) {}
 
   ngOnInit() {
@@ -53,5 +55,9 @@ export class RegisterComponent implements OnInit {
       user: this.form.value,
     };
     this.store.dispatch(registration({ request }));
+    this.authService.register(request).subscribe(
+      (res) => console.log(res),
+      (err) => console.log(err)
+    );
   }
 }
