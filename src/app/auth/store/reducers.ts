@@ -6,6 +6,7 @@ const initialState: AuthStateInterface = {
   isSubmitting: false,
 };
 
+//createFeature gives extra benefit over createReducer as it binds the selector
 const authFeature = createFeature({
   name: 'auth',
   reducer: createReducer(
@@ -14,4 +15,8 @@ const authFeature = createFeature({
   ),
 });
 
-export const { name: authFeatureKey, reducer: authReducer } = authFeature;
+export const {
+  name: authFeatureKey,
+  reducer: authReducer,
+  selectIsSubmitting,
+} = authFeature;

@@ -10,18 +10,26 @@ import { RouterModule } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { registration } from '../../store/actions';
 import { RegisterRequestInterface } from '../../types/registerRequest.interface';
+import { selectIsSubmitting } from '../../store/selectors';
+import { AuthStateInterface } from '../../types/authState.interface';
+import { Observable } from 'rxjs';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [FormsModule, ReactiveFormsModule, RouterModule],
+  imports: [FormsModule, ReactiveFormsModule, RouterModule, CommonModule],
   templateUrl: './register.component.html',
   styleUrl: './register.component.scss',
 })
 export class RegisterComponent implements OnInit {
   form!: FormGroup;
+  isSubmitting$!: Observable<any>;
 
-  constructor(private fb: FormBuilder, private store: Store) {}
+  constructor(
+    private fb: FormBuilder,
+    private store: Store<{ auth: AuthStateInterface }>
+  ) {}
 
   ngOnInit() {
     this.form = this.fb.group({
@@ -36,6 +44,7 @@ export class RegisterComponent implements OnInit {
         ],
       ],
     });
+    this.isSubmitting$ = this.store.select(selectIsSubmitting);
   }
 
   onSubmit() {
