@@ -8,17 +8,21 @@ import { authFeatureKey, authReducer } from './auth/store/reducers';
 import { provideHttpClient } from '@angular/common/http';
 import { provideEffects } from '@ngrx/effects';
 import * as AuthEffects from './auth/store/effects';
+import { provideRouterStore, routerReducer } from '@ngrx/router-store';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(appRoutes),
-    provideStore(),
+    provideStore({
+      router: routerReducer,
+    }),
     provideState(authFeatureKey, authReducer),
     provideStoreDevtools({
       maxAge: 25,
     }),
     provideEffects(AuthEffects),
     provideHttpClient(),
+    provideRouterStore(),
   ],
 };

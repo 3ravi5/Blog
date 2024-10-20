@@ -1,0 +1,20 @@
+<ng-container *ngIf="data$ | async as data">
+  <nav class="navbar navbar-light">
+    <div class="container">
+      <a class="navbar-brand" routerLink="/">medium</a>
+      <ul class="nav navbar-nav pull-xs-right">
+        <li class="nav-item">
+          <a routerLink="/" class="nav-link">Home</a>
+        </li>
+        <ng-container *ngIf="data.currentUser">
+          <li class="nav-item">
+            <a routerLink="/articles/new" class="nav-link">
+              <i class="ion-compose"></i>
+              nbsp; New Post
+            </a>
+          </li>
+        </ng-container>
+      </ul>
+    </div>
+  </nav>
+</ng-container>

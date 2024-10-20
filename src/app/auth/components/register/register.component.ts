@@ -16,7 +16,7 @@ import { combineLatest, Observable } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../../services/auth.service';
 import { selectValidationErrors } from '../../store/reducers';
-import { BackendErrorMessages } from '../../../shared/components/backendErrorMessages.component';
+import { BackendErrorMessages } from '../../../shared/components/BackendErrorMessages/backendErrorMessages.component';
 
 @Component({
   selector: 'app-register',

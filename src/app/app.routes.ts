@@ -9,6 +9,6 @@ export const appRoutes: Routes = [
   },
   {
     path: 'login',
-    component: LoginComponent,
+    loadChildren: () => import('./auth/auth.routes').then((m) => m.loginRoutes),
   },
 ];
