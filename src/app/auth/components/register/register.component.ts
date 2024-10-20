@@ -55,9 +55,5 @@ export class RegisterComponent implements OnInit {
       user: this.form.value,
     };
     this.store.dispatch(registration({ request }));
-    this.authService.register(request).subscribe(
-      (res) => console.log(res),
-      (err) => console.log(err)
-    );
   }
 }
