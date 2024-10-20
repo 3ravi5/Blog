@@ -7,7 +7,8 @@ import {
   registrationSuccess,
 } from './actions';
 import { catchError, map, of, switchMap, throwError } from 'rxjs';
-import { CurentUserInterface } from '../../shared/types/currentUser.interface';
+import { CurrentUserInterface } from '../../shared/types/currentUser.interface';
+import { HttpErrorResponse } from '@angular/common/http';
 
 export const registerEffect = createEffect(
   (actions$ = inject(Actions), authService = inject(AuthService)) => {
@@ -15,10 +16,10 @@ export const registerEffect = createEffect(
       ofType(registration),
       switchMap(({ request }) => {
         return authService.register(request).pipe(
-          map((currentUser: CurentUserInterface) => {
+          map((currentUser: CurrentUserInterface) => {
             return registrationSuccess({ currentUser });
           }),
-          catchError(() => of(registrationError()))
+          catchError((err) => of(registrationError({ errors: err })))
         );
       })
     );
