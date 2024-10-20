@@ -19,7 +19,7 @@ export const registerEffect = createEffect(
           map((currentUser: CurrentUserInterface) => {
             return registrationSuccess({ currentUser });
           }),
-          catchError((err) => of(registrationError({ errors: err })))
+          catchError((err) => of(registrationError({ errors: err.message })))
         );
       })
     );

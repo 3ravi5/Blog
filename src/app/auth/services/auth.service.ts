@@ -2,9 +2,9 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { RegisterRequestInterface } from '../types/registerRequest.interface';
 import { catchError, map, Observable, throwError } from 'rxjs';
-import { CurentUserInterface } from '../../shared/types/currentUser.interface';
 import { AuthResponseInterface } from '../types/authResponse.interface';
 import { environment } from '../../../environments/environment';
+import { CurrentUserInterface } from '../../shared/types/currentUser.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -12,7 +12,7 @@ import { environment } from '../../../environments/environment';
 export class AuthService {
   constructor(private http: HttpClient) {}
 
-  register(data: RegisterRequestInterface): Observable<CurentUserInterface> {
+  register(data: RegisterRequestInterface): Observable<CurrentUserInterface> {
     const url = environment.apiUrl + '/users';
     // transforming AuthResponseInterface to CurrentUserInterface
     return this.http.post<AuthResponseInterface>(url, data).pipe(

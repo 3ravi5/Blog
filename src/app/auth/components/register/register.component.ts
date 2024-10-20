@@ -12,20 +12,30 @@ import { registration } from '../../store/actions';
 import { RegisterRequestInterface } from '../../types/registerRequest.interface';
 import { selectIsSubmitting } from '../../store/selectors';
 import { AuthStateInterface } from '../../types/authState.interface';
-import { Observable } from 'rxjs';
+import { combineLatest, Observable } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../../services/auth.service';
+import { selectValidationErrors } from '../../store/reducers';
+import { BackendErrorMessages } from '../../../shared/components/backendErrorMessages.component';
 
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [FormsModule, ReactiveFormsModule, RouterModule, CommonModule],
+  imports: [
+    FormsModule,
+    ReactiveFormsModule,
+    RouterModule,
+    CommonModule,
+    BackendErrorMessages,
+  ],
   templateUrl: './register.component.html',
   styleUrl: './register.component.scss',
 })
 export class RegisterComponent implements OnInit {
   form!: FormGroup;
   isSubmitting$!: Observable<any>;
+  backendErrors$!: Observable<any>;
+  data$!: Observable<any>;
 
   constructor(
     private fb: FormBuilder,
@@ -46,7 +56,14 @@ export class RegisterComponent implements OnInit {
         ],
       ],
     });
-    this.isSubmitting$ = this.store.select(selectIsSubmitting);
+    // this.isSubmitting$ = this.store.select(selectIsSubmitting);
+    // this.backendErrors$ = this.store.select(selectValidationErrors);
+
+    //we are using combineLatest, it will have data from all the streams inside it
+    this.data$ = combineLatest({
+      isSubmitting: this.store.select(selectIsSubmitting),
+      backendError: this.store.select(selectValidationErrors),
+    });
   }
 
   onSubmit() {
