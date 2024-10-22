@@ -1,6 +1,9 @@
 import { createFeature, createReducer, on } from '@ngrx/store';
 import { AuthStateInterface } from '../types/authState.interface';
 import {
+  getCurrentUser,
+  getCurrentUserError,
+  getCurrentUserSuccess,
   login,
   loginError,
   loginSuccess,
@@ -56,8 +59,24 @@ const authFeature = createFeature({
       isSubmitting: false,
       validationErrors: action.errors,
     })),
+    on(getCurrentUser, (state) => ({
+      ...state,
+      isLoading: true,
+    })),
+    on(getCurrentUserSuccess, (state, action) => ({
+      ...state,
+      isLoading: false,
+      currentUser: action.currentUser,
+    })),
+    on(getCurrentUserError, (state) => ({
+      ...state,
+      currentUser: null,
+    })),
     // this action is dispatched from ngrx/router-store
-    on(routerNavigatedAction, (state) => ({ ...state, validationErrors: null }))
+    on(routerNavigatedAction, (state) => ({
+      ...state,
+      validationErrors: null,
+    }))
   ),
 });
 

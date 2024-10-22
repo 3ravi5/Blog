@@ -17,6 +17,13 @@ export class AuthService {
     return response.user;
   }
 
+  getCurrentUser() {
+    const url = environment.apiUrl + '/user';
+    return this.http
+      .get<AuthResponseInterface>(url)
+      .pipe(map(this.mapToUserInterface));
+  }
+
   register(data: RegisterRequestInterface): Observable<CurrentUserInterface> {
     const url = environment.apiUrl + '/users';
     // transforming AuthResponseInterface to CurrentUserInterface

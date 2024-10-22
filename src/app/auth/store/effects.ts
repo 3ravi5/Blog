@@ -2,6 +2,9 @@ import { inject } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { AuthService } from '../services/auth.service';
 import {
+  getCurrentUser,
+  getCurrentUserError,
+  getCurrentUserSuccess,
   login,
   loginError,
   loginSuccess,
@@ -57,6 +60,29 @@ export const loginEffect = createEffect(
           catchError((err) => {
             return of(loginError({ errors: err.message }));
           })
+        );
+      })
+    );
+  },
+  {
+    functional: true,
+  }
+);
+
+export const getCurrentUserEffect = createEffect(
+  (
+    actions$ = inject(Actions),
+    authService = inject(AuthService),
+    tokenService = inject(TokenService)
+  ) => {
+    return actions$.pipe(
+      ofType(getCurrentUser),
+      switchMap(() => {
+        return authService.getCurrentUser().pipe(
+          map((currentUser: CurrentUserInterface) => {
+            return getCurrentUserSuccess({ currentUser });
+          }),
+          catchError(() => of(getCurrentUserError()))
         );
       })
     );
