@@ -7,7 +7,6 @@
           <p class="text-xs-center">
             <a routerLink="/login">Have an account</a>
           </p>
-          <p>{{ data.backendError }}</p>
           <backend-error-messages
             *ngIf="data.backendError"
             [backendErrors]="data.backendError"

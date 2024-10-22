@@ -16,6 +16,7 @@ import { catchError, map, of, retry, switchMap, tap, throwError } from 'rxjs';
 import { CurrentUserInterface } from '../../shared/types/currentUser.interface';
 import { TokenService } from '../../shared/services/token.service';
 import { Router } from '@angular/router';
+import { HttpErrorResponse } from '@angular/common/http';
 
 export const registerEffect = createEffect(
   (
@@ -33,7 +34,9 @@ export const registerEffect = createEffect(
             tokenService.set('accessToken', currentUser.token);
             return registrationSuccess({ currentUser });
           }),
-          catchError((err) => of(registrationError({ errors: err.message })))
+          catchError((err: HttpErrorResponse) =>
+            of(registrationError({ errors: { err: [err.message] } }))
+          )
         );
       })
     );
@@ -57,8 +60,10 @@ export const loginEffect = createEffect(
             tokenService.set('accessToken', currentUser.token);
             return loginSuccess({ currentUser });
           }),
-          catchError((err) => {
-            return of(loginError({ errors: err.message }));
+          catchError((err: HttpErrorResponse) => {
+            {
+            }
+            return of(loginError({ errors: { err: [err.message] } }));
           })
         );
       })
@@ -78,6 +83,11 @@ export const getCurrentUserEffect = createEffect(
     return actions$.pipe(
       ofType(getCurrentUser),
       switchMap(() => {
+        const token = tokenService.get('accessToken');
+        // if token is removed or cleared... don't make further requests
+        if (!token) {
+          return of(getCurrentUserError());
+        }
         return authService.getCurrentUser().pipe(
           map((currentUser: CurrentUserInterface) => {
             return getCurrentUserSuccess({ currentUser });
