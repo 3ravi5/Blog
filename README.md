@@ -28,6 +28,7 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 
 ## Project detailing
 
+-- NgRx State Management
 -- Global feed
 -- CRUD
 -- Like/Dislike a post
@@ -35,7 +36,6 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 -- Login, Authorization(Local storage token)
 -- Routing
 -- Pagination
--- NgRx State Management
 
 
 ## Architecture of project
