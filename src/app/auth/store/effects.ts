@@ -12,7 +12,7 @@ import {
   registrationError,
   registrationSuccess,
 } from './actions';
-import { catchError, map, of, retry, switchMap, tap, throwError } from 'rxjs';
+import { catchError, map, of, switchMap, tap } from 'rxjs';
 import { CurrentUserInterface } from '../../shared/types/currentUser.interface';
 import { TokenService } from '../../shared/services/token.service';
 import { Router } from '@angular/router';

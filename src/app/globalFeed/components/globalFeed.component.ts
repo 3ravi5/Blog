@@ -10,6 +10,7 @@ import { FeedComponent } from '../../shared/components/feeds/feed.component';
   imports: [RouterModule, CommonModule, FeedComponent],
 })
 export class GlobalFeedComponent implements OnInit {
+  apiUrl: string = 'articles';
   constructor() {}
 
   ngOnInit(): void {}
