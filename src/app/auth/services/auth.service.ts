@@ -37,7 +37,7 @@ export class AuthService {
     const url = environment.apiUrl + '/users/login';
 
     return this.http
-      .get<AuthResponseInterface>(url)
+      .post<AuthResponseInterface>(url, data)
       .pipe(map(this.mapToUserInterface));
   }
 }

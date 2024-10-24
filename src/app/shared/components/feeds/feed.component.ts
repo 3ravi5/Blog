@@ -10,12 +10,14 @@ import {
   selectIsLoading,
 } from './store/feed.reducers';
 import { RouterModule } from '@angular/router';
+import { ErrorComponent } from '../error/error.component';
+import { LoadingComponent } from '../loading/loading.component';
 
 @Component({
   selector: 'feed',
   templateUrl: './feed.component.html',
   standalone: true,
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule, ErrorComponent, LoadingComponent],
 })
 export class FeedComponent implements OnInit {
   @Input() apiUrl: string = '';
