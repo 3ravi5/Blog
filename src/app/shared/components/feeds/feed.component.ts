@@ -9,21 +9,36 @@ import {
   selectFeedData,
   selectIsLoading,
 } from './store/feed.reducers';
-import { RouterModule } from '@angular/router';
+import { ActivatedRoute, Params, Router, RouterModule } from '@angular/router';
 import { ErrorComponent } from '../error/error.component';
 import { LoadingComponent } from '../loading/loading.component';
+import { PaginationComponent } from '../pagination/pagination.component';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'feed',
   templateUrl: './feed.component.html',
   standalone: true,
-  imports: [CommonModule, RouterModule, ErrorComponent, LoadingComponent],
+  imports: [
+    CommonModule,
+    RouterModule,
+    ErrorComponent,
+    LoadingComponent,
+    PaginationComponent,
+  ],
 })
 export class FeedComponent implements OnInit {
   @Input() apiUrl: string = '';
   data$!: Observable<any>;
+  limit: number = environment.limit;
+  baseUrl!: string;
+  currentPage: number = 0;
 
-  constructor(private store: Store) {}
+  constructor(
+    private store: Store,
+    private router: Router,
+    private route: ActivatedRoute
+  ) {}
 
   ngOnInit() {
     this.store.dispatch(getFeed({ url: this.apiUrl }));
@@ -31,6 +46,12 @@ export class FeedComponent implements OnInit {
       isLoading: this.store.select(selectIsLoading),
       error: this.store.select(selectError),
       feed: this.store.select(selectFeedData),
+    });
+
+    this.baseUrl = this.router.url.split('?')[0];
+
+    this.route.queryParams.subscribe((params: Params) => {
+      this.currentPage = Number(params['page'] || '1');
     });
   }
 }
