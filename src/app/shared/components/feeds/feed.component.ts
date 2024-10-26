@@ -41,7 +41,6 @@ export class FeedComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.store.dispatch(getFeed({ url: this.apiUrl }));
     this.data$ = combineLatest({
       isLoading: this.store.select(selectIsLoading),
       error: this.store.select(selectError),
@@ -52,6 +51,13 @@ export class FeedComponent implements OnInit {
 
     this.route.queryParams.subscribe((params: Params) => {
       this.currentPage = Number(params['page'] || '1');
+      this.fetchFeed();
     });
+  }
+
+  fetchFeed() {
+    const offset = (this.currentPage - 1) * this.limit;
+    const detailedUrl = `${this.apiUrl}?limit=${this.limit}&offset=${offset}`;
+    this.store.dispatch(getFeed({ url: detailedUrl }));
   }
 }
