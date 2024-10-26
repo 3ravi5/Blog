@@ -14,6 +14,7 @@ import { ErrorComponent } from '../error/error.component';
 import { LoadingComponent } from '../loading/loading.component';
 import { PaginationComponent } from '../pagination/pagination.component';
 import { environment } from '../../../../environments/environment';
+import { TagListComponent } from '../TagList/tagList.component';
 
 @Component({
   selector: 'feed',
@@ -25,6 +26,7 @@ import { environment } from '../../../../environments/environment';
     ErrorComponent,
     LoadingComponent,
     PaginationComponent,
+    TagListComponent,
   ],
 })
 export class FeedComponent implements OnInit {
