@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { TopBarComponent } from './shared/components/TopBar/topBar.component';
+import { TopBarComponent } from './shared/components/topBar/topBar.component';
 import { Store } from '@ngrx/store';
 import { getCurrentUser } from './auth/store/actions';
 

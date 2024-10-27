@@ -14,7 +14,7 @@ import { ErrorComponent } from '../error/error.component';
 import { LoadingComponent } from '../loading/loading.component';
 import { PaginationComponent } from '../pagination/pagination.component';
 import { environment } from '../../../../environments/environment';
-import { TagListComponent } from '../TagList/tagList.component';
+import { TagListComponent } from '../tagList/tagList.component';
 
 @Component({
   selector: 'feed',

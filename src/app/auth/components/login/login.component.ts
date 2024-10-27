@@ -14,9 +14,8 @@ import { login, registration } from '../../store/actions';
 import { selectValidationErrors } from '../../store/reducers';
 import { selectIsSubmitting } from '../../store/selectors';
 import { AuthStateInterface } from '../../types/authState.interface';
-import { RegisterRequestInterface } from '../../types/registerRequest.interface';
 import { LoginRequestInterface } from '../../types/loginRequest.interface';
-import { BackendErrorMessages } from '../../../shared/components/BackendErrorMessages/backendErrorMessages.component';
+import { BackendErrorMessages } from '../../../shared/components/backendErrorMessages/backendErrorMessages.component';
 
 @Component({
   selector: 'app-login',
