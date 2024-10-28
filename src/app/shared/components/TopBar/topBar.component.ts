@@ -20,7 +20,5 @@ export class TopBarComponent implements OnInit {
     this.data$ = combineLatest({
       currentUser: this.store.select(selectCurrentUser),
     });
-
-    this.data$.subscribe((d) => console.log(d, '--data rendered'));
   }
 }
