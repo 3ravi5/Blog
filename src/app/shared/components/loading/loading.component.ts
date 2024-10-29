@@ -6,6 +6,6 @@ import { Component } from '@angular/core';
   imports: [],
   template: '<div>...Loading</div>',
 })
-export class LoadingComponent {
+export class LoadingComponent implements OnInit {
   constructor() {}
 }
